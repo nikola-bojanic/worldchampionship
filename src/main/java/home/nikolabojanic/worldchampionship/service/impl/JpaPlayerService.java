@@ -13,4 +13,9 @@ public class JpaPlayerService implements PlayerService {
     public List<Player> getAll() {
         return playerRepository.findAll();
     }
+
+    @Override
+    public Player topScorer() {
+        return playerRepository.topScorer();
+    }
 }

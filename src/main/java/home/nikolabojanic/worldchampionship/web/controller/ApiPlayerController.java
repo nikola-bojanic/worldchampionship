@@ -21,4 +21,8 @@ public class ApiPlayerController {
     public ResponseEntity<List<PlayerDto>>getPlayers(){
         return new ResponseEntity<>(toDto.convert(playerService.getAll()), HttpStatus.OK);
     }
+    @GetMapping("/topScorer")
+    public ResponseEntity<PlayerDto>topScorer(){
+        return new ResponseEntity<>(toDto.convert(playerService.topScorer()), HttpStatus.OK);
+    }
 }
