@@ -1,5 +1,6 @@
 package home.nikolabojanic.worldchampionship.web.controller;
 import home.nikolabojanic.worldchampionship.model.Game;
+import home.nikolabojanic.worldchampionship.model.Team;
 import home.nikolabojanic.worldchampionship.service.GameService;
 import home.nikolabojanic.worldchampionship.support.GameToGameDto;
 import home.nikolabojanic.worldchampionship.web.dto.GameDto;
@@ -71,6 +72,16 @@ public class ApiGameController {
         }else{
             gameService.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping(value = "/teamScore/{id}")
+    public ResponseEntity<GameDto> teamScore(@PathVariable Long id, @RequestParam Long teamId){
+        Game game = gameService.scoreGoal(id, teamId);
+        if(game == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }else{
+        return new ResponseEntity<GameDto>(toDto.convert(game), HttpStatus.OK);
         }
     }
 }

@@ -1,6 +1,7 @@
 package home.nikolabojanic.worldchampionship.service.impl;
 import home.nikolabojanic.worldchampionship.model.Game;
 import home.nikolabojanic.worldchampionship.repository.GameRepository;
+import home.nikolabojanic.worldchampionship.repository.TeamRepository;
 import home.nikolabojanic.worldchampionship.service.GameService;
 import home.nikolabojanic.worldchampionship.support.GameDtoToGame;
 import home.nikolabojanic.worldchampionship.web.dto.GameDto;
@@ -15,6 +16,8 @@ public class JpaGameService implements GameService {
     private GameRepository gameRepository;
     @Autowired
     private GameDtoToGame toGame;
+    @Autowired
+    private TeamRepository teamRepository;
     @Override
     public Page<Game> getAll(Long aId, Long bId, int pageNo, int pageSize) {
         if(aId == null && bId == null) {
@@ -38,5 +41,22 @@ public class JpaGameService implements GameService {
     @Override
     public void delete(Long id) {
         gameRepository.deleteById(id);
+    }
+    @Override
+    public Game scoreGoal(Long id, Long teamId) {
+        if(!gameRepository.findById(id).isPresent()){
+            return null;
+        }
+        Game game = gameRepository.findById(id).get();
+        if(teamId != game.getTeamA().getId() && teamId != game.getTeamB().getId()){
+            return null;
+        }
+        if(game.getTeamA().getId() == teamId){
+            game.setGoalsA(game.getGoalsA() + 1);
+        }else{
+            game.setGoalsB(game.getGoalsB() + 1);
+        }
+        gameRepository.save(game);
+        return game;
     }
 }
