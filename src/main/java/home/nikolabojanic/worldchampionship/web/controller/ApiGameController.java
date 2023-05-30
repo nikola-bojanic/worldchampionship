@@ -22,9 +22,11 @@ public class ApiGameController {
     @Autowired
     private GameToGameDto toDto;
     @GetMapping
-    public ResponseEntity<List<GameDto>> getAll(@RequestParam(defaultValue = "0") int pageNo,
+    public ResponseEntity<List<GameDto>> getAll(@RequestParam(required = false) Long teamAId,
+                                                @RequestParam(required = false) Long teamBId,
+                                                @RequestParam(defaultValue = "0") int pageNo,
                                                 @RequestParam(defaultValue = "5") int pageSize){
-        Page<Game> page = gameService.getAll(pageNo, pageSize);
+        Page<Game> page = gameService.getAll(teamAId, teamBId, pageNo, pageSize);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Total-Pages", Integer.toString(page.getTotalPages()));
         return new ResponseEntity<>(toDto.convert(page.getContent()), headers, HttpStatus.OK);

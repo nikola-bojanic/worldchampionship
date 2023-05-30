@@ -12,9 +12,9 @@ public class Game {
     @JoinColumn(referencedColumnName = "id", name = "team_b_id")
     private Team teamB;
     @Column(name = "goals_a")
-    private int goalsA;
+    private int goalsA = 0;
     @Column(name = "goals_b")
-    private int goalsB;
+    private int goalsB = 0;
     public Long getId() {
         return id;
     }

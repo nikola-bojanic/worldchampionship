@@ -16,14 +16,21 @@ public class JpaGameService implements GameService {
     @Autowired
     private GameDtoToGame toGame;
     @Override
-    public Page<Game> getAll(int pageNo, int pageSize) {
-        return gameRepository.findAll(PageRequest.of(pageNo, pageSize));
+    public Page<Game> getAll(Long aId, Long bId, int pageNo, int pageSize) {
+        if(aId == null && bId == null) {
+            return gameRepository.findAll(PageRequest.of(pageNo, pageSize));
+        }else if(aId != null && bId != null){
+            return gameRepository.findByTeamAIdEqualsAndTeamBIdEquals(aId, bId, PageRequest.of(pageNo, pageSize));
+        }else if(aId == null){
+            return gameRepository.findByTeamBIdEquals(bId, PageRequest.of(pageNo, pageSize));
+        }else{
+            return gameRepository.findByTeamAIdEquals(aId, PageRequest.of(pageNo, pageSize));
+        }
     }
     @Override
     public Optional<Game> getOne(Long id) {
         return gameRepository.findById(id);
     }
-
     @Override
     public Game save(GameDto dto) {
         return gameRepository.save(toGame.convert(dto));
