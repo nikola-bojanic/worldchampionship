@@ -1,10 +1,10 @@
 package home.nikolabojanic.worldchampionship.web.controller;
 import home.nikolabojanic.worldchampionship.model.Game;
-import home.nikolabojanic.worldchampionship.model.Team;
 import home.nikolabojanic.worldchampionship.service.GameService;
 import home.nikolabojanic.worldchampionship.support.GameToGameDto;
 import home.nikolabojanic.worldchampionship.web.dto.GameDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,7 +42,7 @@ public class ApiGameController {
             return new ResponseEntity<>(toDto.convert(game.get()), HttpStatus.OK);
         }
     }
-    @PreAuthorize("hasAnyRole('KORISNIK', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('KORISNIK', 'ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GameDto>add(@Validated @RequestBody GameDto gameDto){
         if(gameDto.getId() != null){
@@ -51,7 +51,7 @@ public class ApiGameController {
             return new ResponseEntity<>(toDto.convert(gameService.save(gameDto)), HttpStatus.CREATED);
         }
     }
-    @PreAuthorize("hasAnyRole('KORISNIK', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('KORISNIK', 'ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GameDto>edit(@Validated @RequestBody GameDto gameDto, @PathVariable Long id){
         if(!(id == gameDto.getId())){
@@ -83,5 +83,9 @@ public class ApiGameController {
         }else{
         return new ResponseEntity<GameDto>(toDto.convert(game), HttpStatus.OK);
         }
+    }
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity<Void> handle(){
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

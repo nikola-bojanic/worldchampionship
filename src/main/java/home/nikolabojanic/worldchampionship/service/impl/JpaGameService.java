@@ -1,7 +1,6 @@
 package home.nikolabojanic.worldchampionship.service.impl;
 import home.nikolabojanic.worldchampionship.model.Game;
 import home.nikolabojanic.worldchampionship.repository.GameRepository;
-import home.nikolabojanic.worldchampionship.repository.TeamRepository;
 import home.nikolabojanic.worldchampionship.service.GameService;
 import home.nikolabojanic.worldchampionship.support.GameDtoToGame;
 import home.nikolabojanic.worldchampionship.web.dto.GameDto;
@@ -16,8 +15,6 @@ public class JpaGameService implements GameService {
     private GameRepository gameRepository;
     @Autowired
     private GameDtoToGame toGame;
-    @Autowired
-    private TeamRepository teamRepository;
     @Override
     public Page<Game> getAll(Long aId, Long bId, int pageNo, int pageSize) {
         if(aId == null && bId == null) {

@@ -25,6 +25,9 @@ public class GameDtoToGame implements Converter<GameDto, Game> {
                 game = existing.get();
             }
         }
+        if(gameDto.getTeamAId() == gameDto.getTeamBId()){
+            throw new IllegalArgumentException();
+        }
         if(game != null){
             game.setId(gameDto.getId());
             game.setTeamA(teamService.getOne(gameDto.getTeamAId()));
