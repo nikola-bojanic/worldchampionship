@@ -12,6 +12,9 @@ INSERT INTO team (id, name, code) values (3, 'Portugal', 'POR');
 INSERT INTO player (id, name, last_name, goals, team_id) values (1, 'Dusan', 'Vlahovic', 5, 2);
 INSERT INTO player (id, name, last_name, goals, team_id) values (2, 'Cristiano', 'Ronaldo', 7, 3);
 INSERT INTO player (id, name, last_name, goals, team_id) values (3, 'Lionel', 'Messi', 10, 1);
+INSERT INTO player (id, name, last_name, goals, team_id) values (4, 'Aleksandar', 'Mitrovic', 10, 2);
+INSERT INTO player (id, name, last_name, goals, team_id) values (5, 'Sergio', 'Aguero', 4, 1);
+INSERT INTO player (id, name, last_name, goals, team_id) values (6, 'Bruno', 'Fernandes', 1, 3);
 
 INSERT INTO game (id, team_a_id, team_b_id, goals_a, goals_b) values (1, 2, 1, 0, 3);
 INSERT INTO game (id, team_a_id, team_b_id, goals_a, goals_b) values (2, 1, 3, 4, 1);
