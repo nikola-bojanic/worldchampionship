@@ -3,17 +3,34 @@ public class GameDto {
     private Long id;
     private Long teamAId;
     private Long teamBId;
+    private String teamAName;
+    private String teamBName;
     private int goalsA;
     private int goalsB;
     public GameDto() {
     }
-    public GameDto(Long id, Long teamAId, Long teamBId, int goalsA, int goalsB) {
+    public GameDto(Long id, Long teamAId, Long teamBId, String teamAName, String teamBName, int goalsA, int goalsB) {
         this.id = id;
         this.teamAId = teamAId;
         this.teamBId = teamBId;
+        this.teamAName = teamAName;
+        this.teamBName = teamBName;
         this.goalsA = goalsA;
         this.goalsB = goalsB;
     }
+    public String getTeamAName() {
+        return teamAName;
+    }
+    public void setTeamAName(String teamAName) {
+        this.teamAName = teamAName;
+    }
+    public String getTeamBName() {
+        return teamBName;
+    }
+    public void setTeamBName(String teamBName) {
+        this.teamBName = teamBName;
+    }
+
     public Long getId() {
         return id;
     }
