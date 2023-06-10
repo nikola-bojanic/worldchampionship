@@ -8,5 +8,4 @@ public interface GameService {
     Optional<Game> getOne(Long id);
     Game save (GameDto dto);
     void delete(Long id);
-    Game scoreGoal(Long id, Long teamId);
 }

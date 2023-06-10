@@ -8,7 +8,7 @@ import Login from "./components/login/Login";
 import { logout } from "./services/auth";
 import Games from "./components/games/Games";
 import AddGame from "./components/games/AddGame";
-// import Goalscorer from "./components/games/Goalscorer";
+import Goalscorer from "./components/games/Goalscorer";
 class App extends React.Component {
   render() {
     return (
@@ -35,7 +35,7 @@ class App extends React.Component {
               <Route path="/games" element={<Games/>} />
               <Route path="/addGame" element={<AddGame/>} />
               <Route path="/login" element={<Login/>}/>
-              {/* <Route path="/goalscorer" element ={Goalscorer}/> */}
+              <Route path="/goalscorer/:id" element ={<Goalscorer/>}/>
               <Route path="*" element={<NotFound/>} />
             </Routes>
           </Container>

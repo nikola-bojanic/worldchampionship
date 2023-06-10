@@ -73,16 +73,6 @@ public class ApiGameController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
-    @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping(value = "/teamScore/{id}")
-    public ResponseEntity<GameDto> teamScore(@PathVariable Long id, @RequestParam Long teamId){
-        Game game = gameService.scoreGoal(id, teamId);
-        if(game == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }else{
-        return new ResponseEntity<GameDto>(toDto.convert(game), HttpStatus.OK);
-        }
-    }
     @ExceptionHandler(value = IllegalArgumentException.class)
     public ResponseEntity<Void> handle(){
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

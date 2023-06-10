@@ -29,11 +29,9 @@ public class ApiPlayerController {
         return new ResponseEntity<>(toDto.convert(playerService.getTeamPlayers(teamId)), HttpStatus.OK);
     }
     @PutMapping(value = "/goalscorer/{id}")
-    public ResponseEntity<PlayerDto> goalscorer(@PathVariable Long id, @RequestParam Long playerId){
-        if(id != playerId){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        Player saved = playerService.scoreGoal(playerId);
+    public ResponseEntity<PlayerDto> goalscorer(@PathVariable Long id, @RequestBody PlayerDto dto){
+
+        Player saved = playerService.scoreGoal(dto.getId());
         if(saved == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }else {

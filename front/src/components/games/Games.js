@@ -1,7 +1,7 @@
 import React from "react"
 import ChampionshipAxios from "../../apis/ChampionshipAxios"
 import { Form, Row, Col, Table, Button} from 'react-bootstrap'
-import { withNavigation } from '../../routeconf'
+import { withNavigation, withParams } from '../../routeconf'
 class Games extends React.Component{
     constructor(props){
         super(props)
@@ -81,12 +81,15 @@ class Games extends React.Component{
         search[name] = value;
         this.setState({ search })
     }
+    goalscorer(teamId){
+        this.props.navigate('/goalscorer/' + teamId)
+    }
     homeGoal(game){
         let gameDto = game
         gameDto.goalsA = game.goalsA + 1
         ChampionshipAxios.put('/games/' + game.id, gameDto)
         .then((ress) => {
-            this.getGames(0)
+            this.goalscorer(gameDto.teamAId)
         })
         .catch((err) => {
             alert('An error occurred')
@@ -97,7 +100,7 @@ class Games extends React.Component{
         gameDto.goalsB = game.goalsB + 1
         ChampionshipAxios.put('/games/' + game.id, gameDto)
         .then((ress) => {
-            this.getGames(0)
+            this.goalscorer(gameDto.teamBId)
         })
         .catch((err) => {
             alert('An error occurred')
@@ -209,4 +212,4 @@ class Games extends React.Component{
         )
     }
 }
-export default withNavigation(Games)
+export default withNavigation(withParams(Games))
