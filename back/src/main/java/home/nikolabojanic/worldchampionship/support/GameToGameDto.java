@@ -15,6 +15,8 @@ public class GameToGameDto implements Converter<Game, GameDto> {
         dto.setGoalsB(game.getGoalsB());
         dto.setTeamAId(game.getTeamA().getId());
         dto.setTeamBId(game.getTeamB().getId());
+        dto.setTeamAName(game.getTeamA().getName());
+        dto.setTeamBName(game.getTeamB().getName());
         return dto;
     }
     public List<GameDto> convert(List<Game> games){
