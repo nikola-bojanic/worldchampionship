@@ -1,6 +1,6 @@
 import React from "react"
 import ChampionshipAxios from "../../apis/ChampionshipAxios"
-import { Form, Row, Col, Table, Button} from 'react-bootstrap'
+import { Form, Row, Col, Table, Button, Alert} from 'react-bootstrap'
 import { withNavigation, withParams } from '../../routeconf'
 class Games extends React.Component{
     constructor(props){
@@ -10,6 +10,7 @@ class Games extends React.Component{
         teamBId: ''
         }
         this.state = {
+            topScorer: [],
             search: search,
             games: [],
             teams: [],
@@ -49,6 +50,17 @@ class Games extends React.Component{
         .catch((err) => {
             alert('Unable to retrieve data.')
         })
+    }
+    getTopScorer(){
+        ChampionshipAxios.get('/players/topScorer')
+        .then((res) => {
+            this.setState({topScorer: res.data})
+            const topScorer = this.state.topScorer
+                alert('The top scorer is ' + topScorer[0].name + ' ' + topScorer[0].lastName + '.')                       
+        })
+        .catch((err) => {
+            alert('Unable to retrieve data.')
+        }) 
     }
     delete(id) {
         ChampionshipAxios.delete('/games/' + id)
@@ -167,11 +179,9 @@ class Games extends React.Component{
     }
     render(){
         return(
-        <Col>
-            <Row>
-                {this.renderSearchForm()}
-            </Row>
-            <br/>
+        <Col>            
+        {this.renderSearchForm()}           
+        <br/>
             <Row>
                 {window.localStorage['role']=='ROLE_ADMIN'? 
                 <Col>
@@ -207,6 +217,7 @@ class Games extends React.Component{
             {this.renderGames()}
         </tbody>
         </Table>
+        <Button className="mt-3" onClick={() => this.getTopScorer()}>The top scorer</Button>
         </Col></Row>
         </Col>
         )
